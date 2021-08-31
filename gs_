@@ -1,0 +1,63 @@
+function myFunction() {
+  var ss = SpreadsheetApp.getActive();
+  var data = ss.getSheetByName('data');
+  var today = new Date();
+  //limits in days
+  var ot_disaster_interval = 635;
+  var eb_disaster_interval = 335;
+  var pb_disaster_interval = 335;
+  var mo_disaster_interval = 335; 
+  var names    = data.getRange('A2:A').getValues();
+  var ot_dates = data.getRange('B2:B').getValues();
+  var eb_dates = data.getRange('C2:C').getValues();
+  var pb_dates = data.getRange('D2:D').getValues();
+  var mo_dates = data.getRange('E2:E').getValues();
+  var ot_names = ['ОТ:'];
+  var eb_names = ['ЭБ:'];
+  var pb_names = ['ПБ:'];
+  var mo_names = ['МО:'];
+  var ms_in_day = 24*3600*1000;
+  
+  ot_dates.forEach(function(element,index) { 
+    if(element[0]){
+      var days_diff_betw_now_and_other = Math.floor( (today.valueOf()-element[0].valueOf())/ms_in_day );
+      if (days_diff_betw_now_and_other > ot_disaster_interval){
+        ot_names.push(names[index]);
+      }
+    }
+  });
+
+  eb_dates.forEach(function(element,index) { 
+    if(element[0]){
+      var days_diff_betw_now_and_other = Math.floor( (today.valueOf()-element[0].valueOf())/ms_in_day );
+      if (days_diff_betw_now_and_other > eb_disaster_interval){
+        eb_names.push(names[index]);
+      }
+    }
+  });
+  
+  pb_dates.forEach(function(element,index) { 
+    if(element[0]){
+      var days_diff_betw_now_and_other = Math.floor( (today.valueOf()-element[0].valueOf())/ms_in_day );
+      if (days_diff_betw_now_and_other > pb_disaster_interval){
+        pb_names.push(names[index]);
+      }
+    }
+  });
+  
+  mo_dates.forEach(function(element,index) { 
+    if(element[0]){
+      var days_diff_betw_now_and_other = Math.floor( (today.valueOf()-element[0].valueOf())/ms_in_day );
+      if (days_diff_betw_now_and_other > mo_disaster_interval){
+        mo_names.push(names[index]);
+      }
+    }
+  });
+  
+  var long_message = ot_names[0]+' '+ot_names.slice(1).join(", ")+'\n'+
+                     eb_names[0]+' '+eb_names.slice(1).join(", ")+'\n'+
+                     pb_names[0]+' '+pb_names.slice(1).join(", ")+'\n'+
+                     mo_names[0]+' '+mo_names.slice(1).join(", ")
+
+  MailApp.sendEmail('dm4630400@gmail.com', 'Сроки', long_message);
+}//myFunction
