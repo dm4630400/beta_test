@@ -1,0 +1,8 @@
+latest_hm_alpha = sorted(glob.glob("Alpha/HM*.XLS"), key=os.path.getmtime, reverse=True)[0]
+latest_lm_alpha = sorted(glob.glob("Alpha/LM*.XLS"), key=os.path.getmtime, reverse=True)[0]
+latest_tm_alpha = sorted(glob.glob("Alpha/TM*.XLS"), key=os.path.getmtime, reverse=True)[0]
+
+latest_hm_sogaz = sorted(glob.glob("Sogaz/HM*.XLS"), key=os.path.getmtime, reverse=True)[0]
+latest_lm_sogaz = sorted(glob.glob("Sogaz/LM*.XLS"), key=os.path.getmtime, reverse=True)[0]
+latest_tm_sogaz = sorted(glob.glob("Sogaz/TM*.XLS"), key=os.path.getmtime, reverse=True)[0]
+
